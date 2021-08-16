@@ -25,6 +25,7 @@ runs:
       run: |
         export HELLO_VER=3.1.4
         echo "::set-output name=hello-ver::$(echo $HELLO_VER)"
+        echo "HELLO_VER=${HELLO_VER}" >> $GITHUB_ENV
       shell: bash
 
     - run: ${{ github.action_path }}/goodbye.sh
