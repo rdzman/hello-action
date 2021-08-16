@@ -9,6 +9,8 @@ outputs:
   random-number:
     description: "Random number"
     value: ${{ steps.random-number-generator.outputs.random-id }}
+  hello-ver:
+    value: ${{ steps.hello-version.outputs.hello-ver }}
 runs:
   using: "composite"
   steps:
@@ -19,8 +21,11 @@ runs:
       run: echo "::set-output name=random-id::$(echo $RANDOM)"
       shell: bash
 
-    - name: Set HELLO_VER
-      run: echo "HELLO_VER=3.1.4" >> $GITHUB_ENV
+    - id: hello-version
+      run: |
+        export HELLO_VER=3.1.4
+        echo "::set-output name=hello-ver::$(echo $HELLO_VER)"
+      shell: bash
 
     - run: ${{ github.action_path }}/goodbye.sh
       shell: bash
