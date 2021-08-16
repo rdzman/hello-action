@@ -14,8 +14,13 @@ runs:
   steps:
     - run: echo Hello ${{ inputs.who-to-greet }}.
       shell: bash
+
     - id: random-number-generator
       run: echo "::set-output name=random-id::$(echo $RANDOM)"
       shell: bash
+
+    - name: Set HELLO_VER
+      run: echo "HELLO_VER=3.1.4" >> $GITHUB_ENV
+
     - run: ${{ github.action_path }}/goodbye.sh
       shell: bash
